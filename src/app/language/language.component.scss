@@ -1,0 +1,13 @@
+.mdl-navigation__link{
+    cursor: pointer;
+  }
+  
+  .mdl-navigation__link.active{
+    background: #0a1867;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+      font-size: 24px;
+      margin-right: 10px;
+      vertical-align: middle;
+  }

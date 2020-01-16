@@ -1,0 +1,48 @@
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
+  padding-right: 0;
+}
+
+app-dummy-content {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+// .demo-card-wide>.mdl-card__title {
+//   color: #fff;
+//   height: 176px;
+//   background: url('./welcome_card.jpg') center / cover;
+// }
+
+.demo-card-wide>.mdl-card__menu {
+  color: #fff;
+}
+
+.mdl-layout__content {
+  padding: 25px;
+}
+
+.mdl-navigation__link {
+  cursor: pointer;
+}
+
+.mdl-navigation__link.active {
+  background: #0a1867;
+}
+
+.mdl-card__supporting-text {
+  line-height: 24px;
+  color: #000;
+}
+
+.mdl-layout__content {
+  padding: 25px;
+
+  .page-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-row-gap: 15px;
+    grid-column-gap: 15px;
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,22 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .login-box {
+        padding: 15px;
+    }
+
+    .login-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .register{
+        margin-right: 10px;
+    }
+}

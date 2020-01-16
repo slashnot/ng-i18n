@@ -1,0 +1,31 @@
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
+    padding-right: 0;
+  }
+  
+  .demo-card-wide>.mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('./welcome_card.jpg') center / cover;
+  }
+  
+  .demo-card-wide>.mdl-card__menu {
+    color: #fff;
+  }
+  
+  .mdl-layout__content{
+    padding: 25px;
+  }
+  
+  .mdl-navigation__link{
+    cursor: pointer;
+  }
+  
+  .mdl-navigation__link.active{
+    background: #0a1867;
+  }
+  
+  .mdl-card__supporting-text{
+    line-height: 24px;
+    color: #000;
+  }
+
