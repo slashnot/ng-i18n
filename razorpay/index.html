@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RazorPay</title>
+    <style>
+
+    body{
+        padding: 30px;
+        text-align: center;
+    }
+
+    h2{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    button{
+        border: none;
+        outline: none;
+        background: #2196f3;
+        padding: 15px;
+        color: #FFF;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>Razor pay Demo</h2>
+    <button id="rzp-button1">Check Out with Razor pay</button>
+    <h2 id="response"></h2>
+    <!-- <form action="https://localhost:3000/payment" method="POST">
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_h4JuVRGuWH8hT4"
+            data-amount="50000" data-currency="INR" data-order_id="order_E6kgJwuSH3quwf"
+            data-buttontext="Pay with Razorpay" data-name="Acme Corp"
+            data-description="A Wild Sheep Chase is the third novel by Japanese author Haruki Murakami"
+            data-prefill.name="Ram Kumar" data-prefill.email="ram.kumar@example.com" data-prefill.contact="9999999999"
+            data-theme.color="#F37254"></script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+    </form> -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
+    <script>
+        var razorpay = new Razorpay({
+            key: 'rzp_test_h4JuVRGuWH8hT4',
+        });
+        var data = {
+            amount: 1000, // in currency subunits. Here 1000 = 1000 paise, which equals to ₹10
+            currency: "INR",// Default is INR. We support more than 90 currencies.
+            email: 'gaurav.kumar@example.com',
+            contact: '9123456780',
+            notes: {
+                address: 'Ground Floor, SJR Cyber, Laskar Hosur Road, Bengaluru',
+            },
+            order_id: 'order_9A33XWu170gUtm',
+            method: 'netbanking',
+
+            // method specific fields
+            bank: 'HDFC'
+        };
+        const response = document.querySelector("#response")
+        document.getElementById('rzp-button1').addEventListener('click', function () {
+            // has to be placed within user initiated context, such as click, in order for popup to open.
+            fetch("http://localhost:3000/order")
+                .then(res => res.json())
+                .then(order => {
+                    data.order_id = order.order.id
+                    razorpay.createPayment(data);
+                })
+
+            razorpay.on('payment.success', function (resp) {
+                response.innerHTML = `Payment Successful. Payment ID: ${resp.razorpay_payment_id}`
+                // alert(resp.razorpay_payment_id),
+                //     alert(resp.razorpay_order_id),
+                //     alert(resp.razorpay_signature)
+            });
+
+            razorpay.on('payment.error', function (resp) { 
+                response.innerHTML = `${resp.error.description}`
+            });
+
+        })
+        // document.getElementById('rzp-button1').onclick = function (e) {
+            // let options = {
+            //     "key": "rzp_test_h4JuVRGuWH8hT4",
+            //     "amount": "2000",
+            //     "name": "Ramkumar",
+            //     "handler": (res, res1)=>{
+            //         console.log(res, res1)
+            //     },
+            //     "callback_url": "https://localhost:3000/payment"
+            // }
+            // const rzpy = window.Razorpay(options, ()=>{console.log("SUCCESS")});
+            // rzpy.open();
+            // e.preventDefault();
+        // }
+
+        // const razorpay = window.Razorpay(options);
+
+        // document.getElementById('rzp-button1').addEventListener('click', function () {
+        //     // has to be placed within user initiated context, such as click, in order for popup to open.
+        //     razorpay.createPayment(data);
+
+        //     razorpay.on('payment.success', function (resp) {
+        //         alert(resp.razorpay_payment_id),
+        //             alert(resp.razorpay_order_id),
+        //             alert(resp.razorpay_signature)
+        //     }); // will pass payment ID, order ID, and Razorpay signature to success handler.
+
+        //     razorpay.on('payment.error', function (resp) { alert(resp.error.description) }); // will pass error object to error handler
+
+        // })
+
+        // document.getElementById('rzp-button1').onclick = function (e) {
+        //     fetch("http://localhost:3000/order")
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log(data)
+        //             var data = {
+        //                 amount: 1000, // in currency subunits. Here 1000 = 1000 paise, which equals to ₹10
+        //                 currency: "INR",// Default is INR. We support more than 90 currencies.
+        //                 email: 'gaurav.kumar@example.com',
+        //                 contact: '9123456780',
+        //                 notes: {
+        //                     address: 'Ground Floor, SJR Cyber, Laskar Hosur Road, Bengaluru',
+        //                 },
+        //                 order_id: JSON.parse(data.order).id,
+        //                 method: 'netbanking',
+
+        //                 // method specific fields
+        //                 bank: 'HDFC'
+        //             };
+
+        //             razorpay.createPayment(data);
+
+        //             razorpay.on('payment.success', function (resp) {
+        //                 console.log(resp.razorpay_payment_id),
+        //                     console.log(resp.razorpay_order_id),
+        //                     console.log(resp.razorpay_signature)
+        //             }); // will pass payment ID, order ID, and Razorpay signature to success handler.
+
+        //             razorpay.on('payment.error', function (resp) { console.log(resp.error.description) }); // will pass error object to error handler
+        //         })
+        // }
+
+    </script>
+</body>
+
+</html>
